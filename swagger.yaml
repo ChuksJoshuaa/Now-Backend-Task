@@ -1,0 +1,292 @@
+openapi: 3.0.0
+info:
+  title: NOW-TASK
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://now-task.herokuapp.com/
+    variables: {}
+paths:
+  /user/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+            example:
+              email: admin123@gmail.com
+              password: admin123
+              comfirmPassword: admin123
+              firstName: admin
+              lastName: admin
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /user/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            example:
+              email: admin123@gmail.com
+              password: admin123
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /post:
+    post:
+      tags:
+        - Now
+      summary: Create Thought
+      operationId: CreateThought
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateThoughtRequest"
+            example:
+              title: Music
+              message: Sometimes i find it difficult to select the music i want
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Now
+      summary: Get User Thoughts
+      operationId: GetUserThoughts
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /post/allPosts:
+    get:
+      tags:
+        - Now
+      summary: Get All Thoughts
+      operationId: GetAllThoughts
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /post/v1/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The post ID
+    patch:
+      tags:
+        - Now
+      summary: Update Thought
+      operationId: UpdateThought
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateThoughtRequest"
+            example:
+              title: Sport
+              message: The best sport in the world is football and it's biggest stage is the world cup
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Now
+      summary: Get Single Thought
+      operationId: GetSingleThought
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /post/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The post ID
+    delete:
+      tags:
+        - Now
+      summary: Delete Thought
+      operationId: DeleteThought
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /post/{id}/replyPost:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The post ID
+    post:
+      tags:
+        - Now
+      summary: Reply Thought
+      operationId: ReplyThought
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReplyThoughtRequest"
+            example:
+              value: I think you are right
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - email
+        - password
+        - comfirmPassword
+        - firstName
+        - lastName
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        comfirmPassword:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+      example:
+        email: admin123@gmail.com
+        password: admin123
+        comfirmPassword: admin123
+        firstName: admin
+        lastName: admin
+    LoginRequest:
+      title: LoginRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: admin123@gmail.com
+        password: admin123
+    CreateThoughtRequest:
+      title: CreateThoughtRequest
+      required:
+        - title
+        - message
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+      example:
+        title: Music
+        message: Sometimes i find it difficult to select the music i want
+    UpdateThoughtRequest:
+      title: UpdateThoughtRequest
+      required:
+        - title
+        - message
+      type: object
+      properties:
+        title:
+          type: string
+        message:
+          type: string
+      example:
+        title: Sport
+        message: The best sport in the world is football and it's biggest stage is the world cup
+    ReplyThoughtRequest:
+      title: ReplyThoughtRequest
+      required:
+        - value
+      type: object
+      properties:
+        value:
+          type: string
+      example:
+        value: I think you are right
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Now
+    description: ""
