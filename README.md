@@ -1,7 +1,5 @@
 ### NOW&ME BACKEND TASK
 
-## Project built with Node Js
-
 # Click on this link
 
 https://now-task.herokuapp.com/
